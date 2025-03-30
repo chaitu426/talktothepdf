@@ -75,12 +75,13 @@
   body {
     @apply bg-background text-foreground;
     font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+    letter-spacing: -0.01em;
   }
 }
 
 @layer components {
   .message-bubble {
-    @apply p-4 rounded-2xl max-w-[80%] shadow-sm;
+    @apply p-4 rounded-2xl max-w-[80%] shadow-sm backdrop-blur-sm transition-colors;
   }
   
   .user-message {
@@ -100,10 +101,21 @@
   }
   
   .apple-button {
-    @apply px-5 py-2.5 rounded-full bg-primary text-primary-foreground font-medium transition-all hover:opacity-90;
+    @apply px-5 py-2.5 rounded-full bg-primary text-primary-foreground font-medium transition-all hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-primary/20;
   }
   
   .apple-card {
     @apply rounded-2xl border border-border/60 bg-card/80 backdrop-blur-sm shadow-sm;
   }
 }
+
+/* Apple-inspired animations */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out forwards;
+}
+
