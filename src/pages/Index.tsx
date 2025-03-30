@@ -18,48 +18,51 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <header className="border-b sticky top-0 z-10 bg-background">
+    <div className="min-h-screen flex flex-col bg-background">
+      <header className="border-b border-border/40 sticky top-0 z-10 bg-background/80 backdrop-blur-sm">
         <div className="container py-4 flex justify-between items-center">
           <div className="flex items-center space-x-3">
-            <FileText className="h-7 w-7 text-primary" />
-            <h1 className="text-2xl font-bold">TalkToPDF</h1>
+            <FileText className="h-6 w-6 text-primary" />
+            <h1 className="text-xl font-medium">TalkToPDF</h1>
           </div>
           <ThemeToggle />
         </div>
       </header>
 
-      <main className="flex-1 container py-8">
+      <main className="flex-1 container py-8 md:py-12">
         {!pdfFile ? (
           <div className="max-w-2xl mx-auto">
-            <h2 className="text-3xl font-bold text-center mb-8">
-              Chat with Your PDF Document
+            <h2 className="text-4xl font-medium text-center mb-4">
+              Chat with Your PDF
             </h2>
+            <p className="text-center text-muted-foreground mb-8">
+              Upload a PDF document and start asking questions about its content
+            </p>
             <PDFUploader onFileUpload={handleFileUpload} />
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 h-[calc(100vh-8rem)]">
-            <div className="lg:col-span-2 flex flex-col gap-4">
+            <div className="lg:col-span-2 flex flex-col gap-6">
               <PDFPreview file={pdfFile} onClose={clearPdf} />
               <div className="mt-auto">
                 <button
                   onClick={clearPdf}
-                  className="w-full py-2.5 px-4 border border-input rounded-lg hover:bg-accent transition-colors font-medium"
+                  className="apple-button bg-secondary text-secondary-foreground w-full"
                 >
-                  Upload a Different PDF
+                  Upload Different PDF
                 </button>
               </div>
             </div>
-            <div className="lg:col-span-3 border rounded-lg overflow-hidden shadow-sm bg-card h-full">
+            <div className="lg:col-span-3 apple-card h-full overflow-hidden">
               <ChatContainer pdfFile={pdfFile} />
             </div>
           </div>
         )}
       </main>
 
-      <footer className="border-t py-4 bg-background/80 backdrop-blur-sm">
+      <footer className="border-t border-border/40 py-6 bg-background/80 backdrop-blur-sm">
         <div className="container text-center text-sm text-muted-foreground">
-          <p>TalkToPDF - Chat with your PDF documents with AI</p>
+          <p>TalkToPDF — Chat with your PDF documents using AI</p>
         </div>
       </footer>
     </div>
