@@ -29,7 +29,7 @@ const Index = () => {
         </div>
       </header>
 
-      <main className="flex-1 container max-w-7xl py-8 md:py-10">
+      <main className="flex-1 container max-w-7xl py-6 md:py-8">
         {!pdfFile ? (
           <div className="max-w-2xl mx-auto animate-fade-in">
             <h2 className="text-4xl font-medium text-center mb-4">
@@ -41,10 +41,10 @@ const Index = () => {
             <PDFUploader onFileUpload={handleFileUpload} />
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 min-h-[calc(100vh-10rem)]">
-            <div className="lg:col-span-5 flex flex-col gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 h-[750px]">
+            <div className="lg:col-span-5 flex flex-col">
               <PDFPreview file={pdfFile} onClose={clearPdf} />
-              <div className="mt-auto">
+              <div className="mt-4">
                 <button
                   onClick={clearPdf}
                   className="apple-button bg-secondary text-secondary-foreground w-full hover:bg-secondary/80 transition-colors"
@@ -60,7 +60,7 @@ const Index = () => {
         )}
       </main>
 
-      <footer className="border-t border-border/40 py-6 bg-background/80 backdrop-blur-sm">
+      <footer className="border-t border-border/40 py-6 bg-background/80 backdrop-blur-sm mt-auto">
         <div className="container max-w-7xl text-center text-sm text-muted-foreground">
           <p>TalkToPDF — Chat with your PDF documents using AI</p>
         </div>

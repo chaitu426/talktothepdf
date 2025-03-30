@@ -26,7 +26,7 @@ const PDFPreview = ({ file, onClose }: PDFPreviewProps) => {
   if (!file || !fileURL) return null;
 
   return (
-    <div className={`apple-card overflow-hidden transition-all duration-300 ${expanded ? "fixed inset-4 z-50 bg-background/95" : "h-[600px]"}`}>
+    <div className={`apple-card overflow-hidden transition-all duration-300 ${expanded ? "fixed inset-4 z-50 bg-background/95" : "h-[700px]"}`}>
       <div className="flex justify-between items-center p-3 bg-muted/70 backdrop-blur-sm">
         <div className="flex items-center gap-2">
           <File className="h-5 w-5" />
@@ -52,11 +52,11 @@ const PDFPreview = ({ file, onClose }: PDFPreviewProps) => {
         </div>
       </div>
       
-      <ScrollArea className={`w-full ${expanded ? "h-[calc(100%-40px)]" : "h-[calc(100%-40px)]"}`}>
+      <ScrollArea className="w-full h-[calc(100%-40px)]">
         <iframe 
           src={`${fileURL}#toolbar=0`} 
           title="PDF Preview" 
-          className="w-full h-full"
+          className="w-full h-[650px]"
         />
       </ScrollArea>
     </div>

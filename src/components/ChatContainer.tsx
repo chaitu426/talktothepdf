@@ -4,6 +4,7 @@ import ChatMessage, { Message } from "./ChatMessage";
 import ChatInput from "./ChatInput";
 import { Loader2 } from "lucide-react";
 import { v4 as uuidv4 } from "uuid";
+import { ScrollArea } from "./ui/scroll-area";
 
 interface ChatContainerProps {
   pdfFile: File | null;
@@ -78,9 +79,9 @@ const ChatContainer = ({ pdfFile }: ChatContainerProps) => {
 
   return (
     <div className="flex flex-col h-full">
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+      <ScrollArea className="flex-1 p-4 h-[550px]">
         {messages.length > 0 ? (
-          <>
+          <div className="space-y-4">
             {messages.map((message) => (
               <ChatMessage key={message.id} message={message} />
             ))}
@@ -90,7 +91,7 @@ const ChatContainer = ({ pdfFile }: ChatContainerProps) => {
               </div>
             )}
             <div ref={messagesEndRef} />
-          </>
+          </div>
         ) : (
           <div className="h-full flex flex-col items-center justify-center text-center">
             <p className="text-lg font-medium mb-2">No conversation yet</p>
@@ -99,9 +100,9 @@ const ChatContainer = ({ pdfFile }: ChatContainerProps) => {
             </p>
           </div>
         )}
-      </div>
+      </ScrollArea>
 
-      <div className="p-4 border-t">
+      <div className="p-4 border-t mt-auto">
         <ChatInput 
           onSendMessage={handleSendMessage} 
           disabled={!pdfFile || isLoading} 
