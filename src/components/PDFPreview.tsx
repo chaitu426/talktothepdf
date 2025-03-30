@@ -25,30 +25,30 @@ const PDFPreview = ({ file, onClose }: PDFPreviewProps) => {
   if (!file || !fileURL) return null;
 
   return (
-    <div className={`bg-card rounded-lg overflow-hidden shadow-md border transition-all duration-300 ${expanded ? "fixed inset-8 z-50" : "h-60"}`}>
-      <div className="flex justify-between items-center p-2 bg-muted">
+    <div className={`bg-card rounded-lg overflow-hidden shadow-md border transition-all duration-300 ${expanded ? "fixed inset-4 z-50" : "h-[420px]"}`}>
+      <div className="flex justify-between items-center p-3 bg-muted">
         <div className="flex items-center gap-2">
-          <File className="h-4 w-4" />
-          <span className="text-sm font-medium truncate max-w-[150px]">
+          <File className="h-5 w-5" />
+          <span className="text-sm font-medium truncate max-w-[200px]">
             {file.name}
           </span>
         </div>
         <div className="flex items-center gap-1">
           <button 
             onClick={() => setExpanded(!expanded)}
-            className="p-1 rounded hover:bg-background/50"
+            className="p-1.5 rounded hover:bg-background/50"
           >
-            {expanded ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
+            {expanded ? <Minimize2 className="h-5 w-5" /> : <Maximize2 className="h-5 w-5" />}
           </button>
           <button 
             onClick={onClose}
-            className="p-1 rounded hover:bg-background/50"
+            className="p-1.5 rounded hover:bg-background/50"
           >
-            <X className="h-4 w-4" />
+            <X className="h-5 w-5" />
           </button>
         </div>
       </div>
-      <div className={`w-full ${expanded ? "h-[calc(100%-32px)]" : "h-[calc(100%-32px)]"}`}>
+      <div className={`w-full ${expanded ? "h-[calc(100%-40px)]" : "h-[calc(100%-40px)]"}`}>
         <iframe 
           src={`${fileURL}#toolbar=0`} 
           title="PDF Preview" 
