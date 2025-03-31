@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { FileUp, File as FileIcon } from "lucide-react"; // Renamed 'File' to 'FileIcon'
+import { FileUp, Loader2 } from "lucide-react"; // Import Loader2 for spinner icon
 import { useToast } from "@/hooks/use-toast";
 
 interface PDFUploaderProps {
@@ -8,6 +8,7 @@ interface PDFUploaderProps {
 
 const PDFUploader = ({ onFileUpload }: PDFUploaderProps) => {
   const [isDragging, setIsDragging] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // Loading state
   const { toast } = useToast();
   
   const handleDragOver = useCallback((e: React.DragEvent<HTMLDivElement>) => {
@@ -46,28 +47,29 @@ const PDFUploader = ({ onFileUpload }: PDFUploaderProps) => {
       return;
     }
 
-    // Prepare FormData to send file to backend
+    setIsLoading(true)
+  
+    // Prepare FormData for backend
     const formData = new FormData();
     formData.append("file", file);
-    
-    onFileUpload(file);
-
+  
     try {
       const response = await fetch(`${import.meta.env.VITE_BASE_URL}/api/pdf/upload`, {
         method: "POST",
         body: formData,
       });
-
-      if (!response.ok) throw new Error("Upload failed");
-
-      const result = await response.json();
       
+  
+      if (!response.ok) throw new Error("Upload failed");
+  
+      const result = await response.json();
+  
       toast({
         title: "PDF uploaded",
-        description: `successfully uploaded.`,
+        description: "Successfully uploaded.",
       });
-
-      onFileUpload(file);
+  
+      onFileUpload(file); // Call only once after successful upload
     } catch (error) {
       toast({
         title: "Upload failed",
@@ -75,10 +77,11 @@ const PDFUploader = ({ onFileUpload }: PDFUploaderProps) => {
         variant: "destructive",
       });
     }
+    setIsLoading(false)
   };
+  
 
   return (
-    
     <div 
       className={`pdf-dropzone ${isDragging ? "pdf-dropzone-active" : ""}`}
       onDragOver={handleDragOver}
@@ -91,14 +94,17 @@ const PDFUploader = ({ onFileUpload }: PDFUploaderProps) => {
         accept=".pdf" 
         className="hidden" 
         onChange={handleFileInput}
+        disabled={isLoading} // Disable input when loading
       />
-      <label htmlFor="pdf-upload" className="cursor-pointer">
+      <label htmlFor="pdf-upload" className={`cursor-pointer ${isLoading ? "opacity-50" : ""}`}>
         <div className="flex flex-col items-center gap-4">
           <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center">
-            <FileUp className="h-8 w-8 text-primary" />
+            {isLoading ? <Loader2 className="h-8 w-8 text-primary animate-spin" /> : <FileUp className="h-8 w-8 text-primary" />}
           </div>
           <div className="space-y-1 text-center">
-            <h3 className="text-lg font-medium">Upload your PDF</h3>
+            <h3 className="text-lg font-medium">
+              {isLoading ? "Uploading..." : "Upload your PDF"}
+            </h3>
             <p className="text-sm text-muted-foreground">
               Drag and drop or click to upload
             </p>
